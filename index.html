@@ -61,20 +61,30 @@
                         <label class="block text-xs font-semibold text-slate-700 mb-1">תאריך:</label>
                         <input type="date" id="bookDate" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">
                     </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">שעה:</label>
-                        <input type="time" id="bookTime" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">משעה:</label>
+                            <input type="time" id="startTime" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">עד שעה:</label>
+                            <input type="time" id="endTime" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">
+                        </div>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div>
                         <label class="block text-xs font-semibold text-slate-700 mb-1">כמה אנשים?</label>
                         <input type="number" id="bookPeopleCount" min="1" max="20" value="1" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-slate-700 mb-1">שם האחראי (לוקח המפתח):</label>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">שם האחראי:</label>
                         <input type="text" id="bookResponsible" required placeholder="לדוגמה: איתי כהן" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">מספר טלפון:</label>
+                        <input type="tel" id="bookPhone" required placeholder="050-0000000" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">
                     </div>
                 </div>
 
@@ -105,15 +115,21 @@
             <div class="bg-slate-900 text-white rounded-2xl p-5 shadow-sm">
                 <div class="flex items-center gap-2 mb-2">
                     <span>🔑</span>
-                    <h4 class="font-bold text-sm">מחזיקי המפתחות</h4>
+                    <h4 class="font-bold text-sm">מחזיקי המפתחות (יצירת קשר)</h4>
                 </div>
                 <p class="text-xs text-slate-300 mb-3">המפתח נמצא אצל:</p>
                 <div class="space-y-1.5 text-xs">
-                    <div class="bg-slate-800 p-2.5 rounded-xl border border-slate-700/50 flex justify-between">
+                    <div class="bg-slate-800 p-2.5 rounded-xl border border-slate-700/50 flex justify-between items-center">
                         <span class="font-medium text-white">אלעד הרבסט</span>
+                        <a href="https://wa.me/972500000000" target="_blank" class="bg-green-600 hover:bg-green-500 text-white px-2 py-1 rounded-lg transition flex items-center gap-1">
+                            <span>💬</span> וואטסאפ
+                        </a>
                     </div>
-                    <div class="bg-slate-800 p-2.5 rounded-xl border border-slate-700/50 flex justify-between">
+                    <div class="bg-slate-800 p-2.5 rounded-xl border border-slate-700/50 flex justify-between items-center">
                         <span class="font-medium text-white">ענת שפירא</span>
+                        <a href="https://wa.me/972500000000" target="_blank" class="bg-green-600 hover:bg-green-500 text-white px-2 py-1 rounded-lg transition flex items-center gap-1">
+                            <span>💬</span> וואטסאפ
+                        </a>
                     </div>
                 </div>
             </div>
@@ -156,8 +172,14 @@
             </div>
             <p class="text-xs text-slate-500 mb-4">יש לתאם איסוף והחזרת מפתח מראש מול:</p>
             <div class="space-y-2 mb-6 text-xs">
-                <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 font-bold text-slate-800">אלעד הרבסט</div>
-                <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 font-bold text-slate-800">ענת שפירא</div>
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 flex justify-between items-center">
+                    <span class="font-bold text-slate-800">אלעד הרבסט</span>
+                    <a href="https://wa.me/972500000000" target="_blank" class="text-green-600 font-medium hover:underline flex items-center gap-1"><span>💬</span> וואטסאפ</a>
+                </div>
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 flex justify-between items-center">
+                    <span class="font-bold text-slate-800">ענת שפירא</span>
+                    <a href="https://wa.me/972500000000" target="_blank" class="text-green-600 font-medium hover:underline flex items-center gap-1"><span>💬</span> וואטסאפ</a>
+                </div>
             </div>
             <button onclick="closeModal('keysModal')" class="w-full py-2.5 bg-slate-900 text-white text-xs font-medium rounded-xl hover:bg-slate-800 transition">סגור</button>
         </div>
@@ -194,33 +216,44 @@
 
         // Set default date to today & time to rounded hour
         const dateInput = document.getElementById('bookDate');
-        const timeInput = document.getElementById('bookTime');
+        const startTimeInput = document.getElementById('startTime');
+        const endTimeInput = document.getElementById('endTime');
         const now = new Date();
         dateInput.value = now.toISOString().split('T')[0];
-        timeInput.value = String(now.getHours()).padStart(2, '0') + ':00';
+        
+        let startHour = now.getHours();
+        startTimeInput.value = String(startHour).padStart(2, '0') + ':00';
+        endTimeInput.value = String((startHour + 1) % 24).padStart(2, '0') + ':00';
 
         // Authentication and Data Loading
         async function initApp() {
-            if (auth) {
-                try {
+            try {
+                if (auth) {
                     if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                         await signInWithCustomToken(auth, __initial_auth_token);
                     } else {
                         await signInAnonymously(auth);
                     }
-                } catch (err) {
-                    console.error("Auth error:", err);
-                }
 
-                onAuthStateChanged(auth, (user) => {
-                    if (user) {
-                        setupRealtimeListener();
-                    }
-                });
-            } else {
-                // Fallback simulation if offline/local
-                renderBookings([]);
+                    onAuthStateChanged(auth, (user) => {
+                        if (user) {
+                            setupRealtimeListener();
+                        } else {
+                            fallbackLocalMode();
+                        }
+                    });
+                } else {
+                    fallbackLocalMode();
+                }
+            } catch (err) {
+                console.warn("Auth error, falling back to local mode:", err);
+                fallbackLocalMode();
             }
+        }
+
+        function fallbackLocalMode() {
+            db = null; // Disable DB interactions to avoid hanging
+            renderBookings(cachedBookings);
         }
 
         function setupRealtimeListener() {
@@ -233,27 +266,33 @@
                     list.push({ id: docSnap.id, ...docSnap.data() });
                 });
                 // Sort ascending by date and time
-                list.sort((a, b) => new Date(`${a.date}T${a.time}`) - new Date(`${b.date}T${b.time}`));
+                list.sort((a, b) => new Date(`${a.date}T${a.startTime}`) - new Date(`${b.date}T${b.startTime}`));
                 cachedBookings = list;
                 renderBookings(list);
             }, (error) => {
                 console.error("Firestore read error:", error);
-                showToast("שגיאה בטעינת נתונים מהענן", true);
+                showToast("שגיאה בטעינת נתונים מהענן, עובר למצב מקומי", true);
+                fallbackLocalMode();
             });
         }
 
-        function checkClassConflict(dateStr, timeStr) {
-            const dateObj = new Date(dateStr);
-            const dayOfWeek = dateObj.getDay(); // 0 = Sunday, 2 = Tuesday
+        function timeToMinutes(timeStr) {
             const [hours, minutes] = timeStr.split(':').map(Number);
-            const totalMinutes = hours * 60 + minutes;
+            return hours * 60 + minutes;
+        }
+
+        function checkClassConflict(dateStr, startStr, endStr) {
+            const dateObj = new Date(dateStr);
+            const dayOfWeek = dateObj.getDay(); 
+            const startMin = timeToMinutes(startStr);
+            const endMin = timeToMinutes(endStr);
 
             // Sunday (0) 16:00 (960) - 17:00 (1020)
-            if (dayOfWeek === 0 && totalMinutes >= 960 && totalMinutes < 1020) {
+            if (dayOfWeek === 0 && startMin < 1020 && endMin > 960) {
                 return "חוג דרמה (ראשון 16:00-17:00)";
             }
             // Tuesday (2) 20:30 (1230) - 22:00 (1320)
-            if (dayOfWeek === 2 && totalMinutes >= 1230 && totalMinutes <= 1320) {
+            if (dayOfWeek === 2 && startMin < 1320 && endMin > 1230) {
                 return "חוג מקהלת נשים (שלישי 20:30-22:00)";
             }
             return null;
@@ -262,49 +301,69 @@
         window.submitBooking = async function(e) {
             e.preventDefault();
             const date = dateInput.value;
-            const time = timeInput.value;
+            const startTime = startTimeInput.value;
+            const endTime = endTimeInput.value;
             const count = document.getElementById('bookPeopleCount').value;
             const responsible = document.getElementById('bookResponsible').value.trim();
+            const phone = document.getElementById('bookPhone').value.trim();
             const notes = document.getElementById('bookNotes').value.trim();
 
+            if (timeToMinutes(startTime) >= timeToMinutes(endTime)) {
+                showToast("שעת הסיום חייבת להיות אחרי שעת ההתחלה!", true);
+                return;
+            }
+
             // 1. Check class conflict
-            const classConflict = checkClassConflict(date, time);
+            const classConflict = checkClassConflict(date, startTime, endTime);
             if (classConflict) {
-                showToast(`לא ניתן לשיין בשעה זו כי יש ${classConflict}`, true);
+                showToast(`לא ניתן לשיין בשעות אלו כי יש ${classConflict}`, true);
                 return;
             }
 
             // 2. Check existing bookings conflict
-            const existingConflict = cachedBookings.find(b => b.date === date && b.time === time);
+            const startMin = timeToMinutes(startTime);
+            const endMin = timeToMinutes(endTime);
+            
+            const existingConflict = cachedBookings.find(b => {
+                if (b.date !== date) return false;
+                const bStart = timeToMinutes(b.startTime);
+                const bEnd = timeToMinutes(b.endTime);
+                return startMin < bEnd && endMin > bStart; // Overlap logic
+            });
+
             if (existingConflict) {
-                showToast(`השעה הזו כבר תפוסה על ידי ${existingConflict.responsible}!`, true);
+                showToast(`הזמן חופף עם שריון של ${existingConflict.responsible} (${existingConflict.startTime}-${existingConflict.endTime})!`, true);
                 return;
             }
 
             const submitBtn = document.getElementById('submitBtn');
             submitBtn.disabled = true;
-            submitBtn.innerHTML = `<span>שומר בענן...</span>`;
+            submitBtn.innerHTML = `<span>שומר...</span>`;
 
             try {
                 if (db) {
                     const bookingsCol = collection(db, 'artifacts', appId, 'public', 'data', 'music_room_bookings');
                     await addDoc(bookingsCol, {
                         date,
-                        time,
+                        startTime,
+                        endTime,
                         count,
                         responsible,
+                        phone,
                         notes,
                         createdAt: Date.now()
                     });
                 } else {
                     // Local memory fallback
-                    cachedBookings.push({ id: Date.now(), date, time, count, responsible, notes });
+                    cachedBookings.push({ id: Date.now().toString(), date, startTime, endTime, count, responsible, phone, notes });
+                    cachedBookings.sort((a, b) => new Date(`${a.date}T${a.startTime}`) - new Date(`${b.date}T${b.startTime}`));
                     renderBookings(cachedBookings);
                 }
 
                 document.getElementById('bookResponsible').value = '';
+                document.getElementById('bookPhone').value = '';
                 document.getElementById('bookNotes').value = '';
-                showToast('השריון בוצע בהצלחה ונשמר בענן! 🎵');
+                showToast('השריון בוצע בהצלחה! 🎵');
             } catch (err) {
                 console.error("Error saving booking:", err);
                 showToast("שגיאה בשמירת השריון, נסה שוב", true);
@@ -346,10 +405,10 @@
                 container.innerHTML += `
                     <div class="bg-slate-50 border border-slate-100 rounded-xl p-3 text-xs flex justify-between items-center">
                         <div>
-                            <div class="font-bold text-slate-900 mb-0.5">${b.date} | שעה ${b.time}</div>
-                            <div class="text-slate-600">👤 <strong>${b.responsible}</strong> (${b.count} אנשים) ${b.notes ? '• ' + b.notes : ''}</div>
+                            <div class="font-bold text-slate-900 mb-0.5">${b.date} | ${b.startTime} - ${b.endTime}</div>
+                            <div class="text-slate-600">👤 <strong>${b.responsible}</strong> (${b.phone || 'ללא טלפון'}) • ${b.count} אנשים ${b.notes ? '<br>📝 ' + b.notes : ''}</div>
                         </div>
-                        <button onclick="cancelBooking('${b.id}')" class="text-slate-400 hover:text-rose-600 p-1 font-bold transition" title="ביטול שריון">&times;</button>
+                        <button onclick="cancelBooking('${b.id}')" class="text-slate-400 hover:text-rose-600 p-2 bg-white rounded-lg border border-slate-200 font-bold transition shadow-sm" title="ביטול שריון">&times;</button>
                     </div>
                 `;
             });
