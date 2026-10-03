@@ -225,19 +225,20 @@
         const now = new Date();
         dateInput.value = now.toISOString().split('T')[0];
         
-        // Populate 24h options
+        // Populate 24h options (all day, 15-min intervals)
         let timeOptions = '';
-        for (let i = 8; i < 24; i++) {
+        for (let i = 0; i < 24; i++) {
             let h = String(i).padStart(2, '0');
             timeOptions += `<option value="${h}:00">${h}:00</option>`;
+            timeOptions += `<option value="${h}:15">${h}:15</option>`;
             timeOptions += `<option value="${h}:30">${h}:30</option>`;
+            timeOptions += `<option value="${h}:45">${h}:45</option>`;
         }
         startTimeSelect.innerHTML = timeOptions;
         endTimeSelect.innerHTML = timeOptions;
 
         // Set smart default hours
         let startHour = now.getHours();
-        if (startHour < 8) startHour = 8;
         if (startHour >= 23) startHour = 22;
         startTimeSelect.value = String(startHour).padStart(2, '0') + ':00';
         endTimeSelect.value = String(startHour + 1).padStart(2, '0') + ':00';
