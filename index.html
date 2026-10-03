@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>חדר מוזיקה דולב - שריון שעות</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Font: Heebo -->
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Heebo', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between">
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-3">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-lg">🎵</div>
+                <div>
+                    <h1 class="text-xl font-bold text-slate-900">חדר מוזיקה דולב</h1>
+                    <p class="text-xs text-slate-500">שריון מהיר וניהול שעות משותף (ענן)</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 text-xs">
+                <button onclick="openModal('rulesModal')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2 rounded-lg font-medium transition flex items-center gap-1.5">
+                    <span>📋</span> נהלי החדר
+                </button>
+                <button onclick="openModal('keysModal')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2 rounded-lg font-medium transition flex items-center gap-1.5">
+                    <span>🔑</span> מי מחזיק מפתח?
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-8 w-full grid grid-cols-1 md:grid-cols-3 gap-6 my-auto">
+        
+        <!-- Left 2 Cols: Quick Booking Card -->
+        <div class="md:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+            <h2 class="text-lg font-bold text-slate-900 mb-1">שריון שעה חדשה</h2>
+            <p class="text-xs text-slate-500 mb-6">בחר תאריך, שעה ורשום את הפרטים בקליק</p>
+
+            <!-- Restriction Notice Banner -->
+            <div class="bg-slate-100 border border-slate-200 rounded-xl p-3.5 mb-6 text-xs text-slate-700 flex items-start gap-2.5">
+                <span class="text-base">⚠️</span>
+                <div>
+                    <span class="font-bold block mb-0.5">שעות חוגים קבועות (אין אפשרות לשיין בזמנים אלו):</span>
+                    <ul class="list-disc list-inside space-y-0.5 text-slate-600">
+                        <li><strong>ראשון 16:00-17:00:</strong> חוג דרמה</li>
+                        <li><strong>שלישי 20:30-22:00:</strong> חוג מקהלת נשים</li>
+                    </ul>
+                </div>
+            </div>
+
+            <form id="quickBookingForm" onsubmit="submitBooking(event)" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">תאריך:</label>
+                        <input type="date" id="bookDate" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">שעה:</label>
+                        <input type="time" id="bookTime" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">כמה אנשים?</label>
+                        <input type="number" id="bookPeopleCount" min="1" max="20" value="1" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">שם האחראי (לוקח המפתח):</label>
+                        <input type="text" id="bookResponsible" required placeholder="לדוגמה: איתי כהן" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">הערות / כלי נגינה (אופציונלי):</label>
+                    <input type="text" id="bookNotes" placeholder="פסנתר, גיטרה, אימון הרכב..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">
+                </div>
+
+                <button type="submit" id="submitBtn" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-medium py-3 rounded-xl shadow-sm transition text-sm flex items-center justify-center gap-2">
+                    <span>שיין את החדר עכשיו</span>
+                </button>
+            </form>
+        </div>
+
+        <!-- Right Col: Upcoming Bookings List -->
+        <div class="space-y-6">
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-base font-bold text-slate-900">השריונים הקרובים</h3>
+                    <span class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full font-medium" id="bookingsCountBadge">טוען...</span>
+                </div>
+                <div id="bookingsListContainer" class="space-y-3 max-h-[360px] overflow-y-auto pr-1">
+                    <!-- Loaded via Firebase Realtime Listener -->
+                </div>
+            </div>
+
+            <!-- Quick Key Holder Reminder -->
+            <div class="bg-slate-900 text-white rounded-2xl p-5 shadow-sm">
+                <div class="flex items-center gap-2 mb-2">
+                    <span>🔑</span>
+                    <h4 class="font-bold text-sm">מחזיקי המפתחות</h4>
+                </div>
+                <p class="text-xs text-slate-300 mb-3">המפתח נמצא אצל:</p>
+                <div class="space-y-1.5 text-xs">
+                    <div class="bg-slate-800 p-2.5 rounded-xl border border-slate-700/50 flex justify-between">
+                        <span class="font-medium text-white">אלעד הרבסט</span>
+                    </div>
+                    <div class="bg-slate-800 p-2.5 rounded-xl border border-slate-700/50 flex justify-between">
+                        <span class="font-medium text-white">ענת שפירא</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="text-center py-6 text-xs text-slate-400 border-t border-slate-200 bg-white">
+        חדר מוזיקה דולב &bull; שמרו על הציוד והנקיון
+    </footer>
+
+    <!-- Rules Modal -->
+    <div id="rulesModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-xl border border-slate-100">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-bold text-slate-900 flex items-center gap-2"><span>📋</span> נהלי חדר מוזיקה</h3>
+                <button onclick="closeModal('rulesModal')" class="text-slate-400 hover:text-slate-600 text-lg font-bold">&times;</button>
+            </div>
+            <ul class="space-y-2.5 text-xs text-slate-600 mb-6">
+                <li class="bg-slate-50 p-2.5 rounded-xl border border-slate-100 flex items-center gap-2">
+                    <span class="text-slate-900 font-bold">✓</span> לשמור על סדר ונקיון החדר
+                </li>
+                <li class="bg-slate-50 p-2.5 rounded-xl border border-slate-100 flex items-center gap-2">
+                    <span class="text-red-500 font-bold">✕</span> אסור בהחלט הכנסת אוכל ושתייה!
+                </li>
+                <li class="bg-slate-50 p-2.5 rounded-xl border border-slate-100 flex items-center gap-2">
+                    <span class="text-slate-900 font-bold">✓</span> לכבות אור ומזגן מיד ביציאה
+                </li>
+            </ul>
+            <button onclick="closeModal('rulesModal')" class="w-full py-2.5 bg-slate-900 text-white text-xs font-medium rounded-xl hover:bg-slate-800 transition">הבנתי, תודה</button>
+        </div>
+    </div>
+
+    <!-- Keys Modal -->
+    <div id="keysModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-xl border border-slate-100">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="font-bold text-slate-900 flex items-center gap-2"><span>🔑</span> בעלי מפתחות</h3>
+                <button onclick="closeModal('keysModal')" class="text-slate-400 hover:text-slate-600 text-lg font-bold">&times;</button>
+            </div>
+            <p class="text-xs text-slate-500 mb-4">יש לתאם איסוף והחזרת מפתח מראש מול:</p>
+            <div class="space-y-2 mb-6 text-xs">
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 font-bold text-slate-800">אלעד הרבסט</div>
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 font-bold text-slate-800">ענת שפירא</div>
+            </div>
+            <button onclick="closeModal('keysModal')" class="w-full py-2.5 bg-slate-900 text-white text-xs font-medium rounded-xl hover:bg-slate-800 transition">סגור</button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 left-5 bg-slate-900 text-white px-4 py-2.5 rounded-xl shadow-lg transition-all duration-300 transform translate-y-16 opacity-0 z-50 text-xs flex items-center gap-2">
+        <span id="toastMsg">הפעולה בוצעה בהצלחה</span>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'dolav-music-room-app';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
+            apiKey: "AIzaSyDummyKeyForGitHubExport",
+            authDomain: "dolav-music.firebaseapp.com",
+            projectId: "dolav-music"
+        };
+
+        let app, db, auth;
+        let cachedBookings = [];
+
+        try {
+            app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            auth = getAuth(app);
+        } catch (e) {
+            console.warn("Firebase Init fallback/offline mode", e);
+        }
+
+        // Set default date to today & time to rounded hour
+        const dateInput = document.getElementById('bookDate');
+        const timeInput = document.getElementById('bookTime');
+        const now = new Date();
+        dateInput.value = now.toISOString().split('T')[0];
+        timeInput.value = String(now.getHours()).padStart(2, '0') + ':00';
+
+        // Authentication and Data Loading
+        async function initApp() {
+            if (auth) {
+                try {
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                } catch (err) {
+                    console.error("Auth error:", err);
+                }
+
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        setupRealtimeListener();
+                    }
+                });
+            } else {
+                // Fallback simulation if offline/local
+                renderBookings([]);
+            }
+        }
+
+        function setupRealtimeListener() {
+            if (!db) return;
+            const bookingsCol = collection(db, 'artifacts', appId, 'public', 'data', 'music_room_bookings');
+            
+            onSnapshot(bookingsCol, (snapshot) => {
+                const list = [];
+                snapshot.forEach((docSnap) => {
+                    list.push({ id: docSnap.id, ...docSnap.data() });
+                });
+                // Sort ascending by date and time
+                list.sort((a, b) => new Date(`${a.date}T${a.time}`) - new Date(`${b.date}T${b.time}`));
+                cachedBookings = list;
+                renderBookings(list);
+            }, (error) => {
+                console.error("Firestore read error:", error);
+                showToast("שגיאה בטעינת נתונים מהענן", true);
+            });
+        }
+
+        function checkClassConflict(dateStr, timeStr) {
+            const dateObj = new Date(dateStr);
+            const dayOfWeek = dateObj.getDay(); // 0 = Sunday, 2 = Tuesday
+            const [hours, minutes] = timeStr.split(':').map(Number);
+            const totalMinutes = hours * 60 + minutes;
+
+            // Sunday (0) 16:00 (960) - 17:00 (1020)
+            if (dayOfWeek === 0 && totalMinutes >= 960 && totalMinutes < 1020) {
+                return "חוג דרמה (ראשון 16:00-17:00)";
+            }
+            // Tuesday (2) 20:30 (1230) - 22:00 (1320)
+            if (dayOfWeek === 2 && totalMinutes >= 1230 && totalMinutes <= 1320) {
+                return "חוג מקהלת נשים (שלישי 20:30-22:00)";
+            }
+            return null;
+        }
+
+        window.submitBooking = async function(e) {
+            e.preventDefault();
+            const date = dateInput.value;
+            const time = timeInput.value;
+            const count = document.getElementById('bookPeopleCount').value;
+            const responsible = document.getElementById('bookResponsible').value.trim();
+            const notes = document.getElementById('bookNotes').value.trim();
+
+            // 1. Check class conflict
+            const classConflict = checkClassConflict(date, time);
+            if (classConflict) {
+                showToast(`לא ניתן לשיין בשעה זו כי יש ${classConflict}`, true);
+                return;
+            }
+
+            // 2. Check existing bookings conflict
+            const existingConflict = cachedBookings.find(b => b.date === date && b.time === time);
+            if (existingConflict) {
+                showToast(`השעה הזו כבר תפוסה על ידי ${existingConflict.responsible}!`, true);
+                return;
+            }
+
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<span>שומר בענן...</span>`;
+
+            try {
+                if (db) {
+                    const bookingsCol = collection(db, 'artifacts', appId, 'public', 'data', 'music_room_bookings');
+                    await addDoc(bookingsCol, {
+                        date,
+                        time,
+                        count,
+                        responsible,
+                        notes,
+                        createdAt: Date.now()
+                    });
+                } else {
+                    // Local memory fallback
+                    cachedBookings.push({ id: Date.now(), date, time, count, responsible, notes });
+                    renderBookings(cachedBookings);
+                }
+
+                document.getElementById('bookResponsible').value = '';
+                document.getElementById('bookNotes').value = '';
+                showToast('השריון בוצע בהצלחה ונשמר בענן! 🎵');
+            } catch (err) {
+                console.error("Error saving booking:", err);
+                showToast("שגיאה בשמירת השריון, נסה שוב", true);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `<span>שיין את החדר עכשיו</span>`;
+            }
+        };
+
+        window.cancelBooking = async function(id) {
+            try {
+                if (db) {
+                    const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'music_room_bookings', id);
+                    await deleteDoc(docRef);
+                } else {
+                    cachedBookings = cachedBookings.filter(b => b.id !== id);
+                    renderBookings(cachedBookings);
+                }
+                showToast('השריון בוטל בהצלחה');
+            } catch (err) {
+                console.error("Error deleting booking:", err);
+                showToast("שגיאה בביטוח השריון", true);
+            }
+        };
+
+        function renderBookings(bookings) {
+            const container = document.getElementById('bookingsListContainer');
+            const badge = document.getElementById('bookingsCountBadge');
+            
+            container.innerHTML = '';
+            badge.innerText = `${bookings.length} פעילים`;
+
+            if (bookings.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-400 text-center py-6">אין שריונים פעילים כרגע.</p>`;
+                return;
+            }
+
+            bookings.forEach(b => {
+                container.innerHTML += `
+                    <div class="bg-slate-50 border border-slate-100 rounded-xl p-3 text-xs flex justify-between items-center">
+                        <div>
+                            <div class="font-bold text-slate-900 mb-0.5">${b.date} | שעה ${b.time}</div>
+                            <div class="text-slate-600">👤 <strong>${b.responsible}</strong> (${b.count} אנשים) ${b.notes ? '• ' + b.notes : ''}</div>
+                        </div>
+                        <button onclick="cancelBooking('${b.id}')" class="text-slate-400 hover:text-rose-600 p-1 font-bold transition" title="ביטול שריון">&times;</button>
+                    </div>
+                `;
+            });
+        }
+
+        window.openModal = function(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        window.closeModal = function(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        function showToast(msg, isError = false) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.className = `fixed bottom-5 left-5 text-white px-4 py-2.5 rounded-xl shadow-lg transition-all duration-300 transform translate-y-0 opacity-100 z-50 text-xs flex items-center gap-2 ${isError ? 'bg-rose-600' : 'bg-slate-900'}`;
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-16', 'opacity-0');
+            }, 3500);
+        }
+
+        window.onload = function() {
+            initApp();
+        };
+    </script>
+</body>
+</html>
