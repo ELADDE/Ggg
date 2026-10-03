@@ -64,11 +64,15 @@
                     <div class="grid grid-cols-2 gap-2">
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">משעה:</label>
-                            <input type="time" id="startTime" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">
+                            <select id="startTime" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 cursor-pointer">
+                                <!-- Options populated by JS -->
+                            </select>
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-700 mb-1">עד שעה:</label>
-                            <input type="time" id="endTime" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900">
+                            <select id="endTime" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900 cursor-pointer">
+                                <!-- Options populated by JS -->
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -214,16 +218,29 @@
             console.warn("Firebase Init fallback/offline mode", e);
         }
 
-        // Set default date to today & time to rounded hour
+        // Set default date to today & populate time selects (24-hour format)
         const dateInput = document.getElementById('bookDate');
-        const startTimeInput = document.getElementById('startTime');
-        const endTimeInput = document.getElementById('endTime');
+        const startTimeSelect = document.getElementById('startTime');
+        const endTimeSelect = document.getElementById('endTime');
         const now = new Date();
         dateInput.value = now.toISOString().split('T')[0];
         
+        // Populate 24h options
+        let timeOptions = '';
+        for (let i = 8; i < 24; i++) {
+            let h = String(i).padStart(2, '0');
+            timeOptions += `<option value="${h}:00">${h}:00</option>`;
+            timeOptions += `<option value="${h}:30">${h}:30</option>`;
+        }
+        startTimeSelect.innerHTML = timeOptions;
+        endTimeSelect.innerHTML = timeOptions;
+
+        // Set smart default hours
         let startHour = now.getHours();
-        startTimeInput.value = String(startHour).padStart(2, '0') + ':00';
-        endTimeInput.value = String((startHour + 1) % 24).padStart(2, '0') + ':00';
+        if (startHour < 8) startHour = 8;
+        if (startHour >= 23) startHour = 22;
+        startTimeSelect.value = String(startHour).padStart(2, '0') + ':00';
+        endTimeSelect.value = String(startHour + 1).padStart(2, '0') + ':00';
 
         // Authentication and Data Loading
         async function initApp() {
@@ -301,8 +318,8 @@
         window.submitBooking = async function(e) {
             e.preventDefault();
             const date = dateInput.value;
-            const startTime = startTimeInput.value;
-            const endTime = endTimeInput.value;
+            const startTime = startTimeSelect.value;
+            const endTime = endTimeSelect.value;
             const count = document.getElementById('bookPeopleCount').value;
             const responsible = document.getElementById('bookResponsible').value.trim();
             const phone = document.getElementById('bookPhone').value.trim();
